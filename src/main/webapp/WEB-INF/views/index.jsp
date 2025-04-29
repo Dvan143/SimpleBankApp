@@ -1,9 +1,25 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
 <html>
 <head>
-    <title>Main page</title>
+    <title>SimpleBank</title>
 </head>
 <body>
-<h3>Hello, ${message}</h3>
+<header>
+<span class="header">
+    <nav>
+            <ul>
+                <li>
+                    <a href="#">Main</a>
+                </li>
+                <li>
+                    <a href="#">Auth</a>
+                </li>
+                <li>
+                    <a href="#">About us</a>
+                </li>
+            </ul>
+        </nav>
+</span>
+</header>
 </body>
 </html>

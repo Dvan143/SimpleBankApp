@@ -1,5 +1,4 @@
-<html>
-<body>
-<h2>Hello World!</h2>
-</body>
-</html>
+<%
+    String redirectURL = "http://localhost:8080/main";
+    response.sendRedirect(redirectURL);
+%>
