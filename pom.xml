@@ -33,6 +33,16 @@
       <version>${spring-boot-version}</version>
       <scope>compile</scope>
     </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-thymeleaf</artifactId>
+      <version>${spring-boot-version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-security</artifactId>
+      <version>${spring-boot-version}</version>
+    </dependency>
     <!--    <dependency>-->
     <!--      <groupId>org.springframework.boot</groupId>-->
     <!--      <artifactId>spring-boot-starter-tomcat</artifactId>-->
