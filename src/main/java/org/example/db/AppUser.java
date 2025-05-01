@@ -1,10 +1,11 @@
 package org.example.db;
 
 import jakarta.persistence.*;
+import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity
 @Table(name = "users")
-public class User {
+public class AppUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -15,13 +16,13 @@ public class User {
     @Column
     private String role;
 
-    public User(String username, String password, String role) {
+    public AppUser(String username, String password, String role) {
         this.username = username;
         this.password = password;
         this.role = role;
     }
 
-    public User() {
+    public AppUser() {
 
     }
 

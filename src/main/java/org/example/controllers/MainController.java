@@ -1,7 +1,8 @@
 package org.example.controllers;
 
 
-import org.example.db.User;
+import jakarta.annotation.PostConstruct;
+import org.example.db.AppUser;
 import org.example.db.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -34,7 +35,7 @@ public class MainController {
         return new ResponseEntity<>(userService.findAll(), HttpStatus.OK);
     }
     @PostMapping("/api/newUser")
-    public ResponseEntity newUser(@RequestBody User user){
+    public ResponseEntity newUser(@RequestBody AppUser user){
         if (userService.findByUsername(user.getUsername()).isPresent()){
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         } else{
@@ -74,5 +75,22 @@ public class MainController {
                 .filter(user -> user.getRole()=="admin")
                 .collect(Collectors.toList());
         return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+    // Test sec
+    @GetMapping("/admin")
+    public String admin(){
+        return "admin";
+    }
+    @GetMapping("/user")
+    public String user(){
+        return "user";
+    }
+    @GetMapping("/login")
+    public String login(){
+        return "login";
+    }
+    @GetMapping("/logout")
+    public String logout(){
+        return "logout";
     }
 }

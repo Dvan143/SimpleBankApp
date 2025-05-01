@@ -15,10 +15,10 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public List<User> findAll() {
+    public List<AppUser> findAll() {
         return userRepository.findAll();
     }
-    public User findById(long id) {
+    public AppUser findById(long id) {
         return userRepository.findById(id);
     }
     public void deleteById(long id) {
@@ -30,7 +30,7 @@ public class UserService {
     public boolean existById(Long id) {
         return userRepository.existsById(id);
     }
-    public Optional<User> findByUsername(String username) {
+    public Optional<AppUser> findByUsername(String username) {
         return userRepository.findByUsername(username);
     }
     public String getRoleByUsername(String username) {
@@ -39,19 +39,13 @@ public class UserService {
     //    public void save(User user) {
     //        userRepository.save(user);
     //    }
-    public void save(User user){
-        User newUser = new User();
+    public void save(AppUser user){
+        AppUser newUser = new AppUser();
         if (user.getRole()==null){
-            newUser = new User(user.getUsername(),user.getPassword(),"user");
+            newUser = new AppUser(user.getUsername(),user.getPassword(),"user");
         } else{
-            newUser = new User(user.getUsername(),user.getPassword(),user.getRole());
+            newUser = new AppUser(user.getUsername(),user.getPassword(),user.getRole());
         }
         userRepository.save(newUser);
-    }
-
-    // Creating admin user
-    @PostConstruct
-    public void init() {
-        userRepository.save(new User("admin","admin","admin"));
     }
 }
