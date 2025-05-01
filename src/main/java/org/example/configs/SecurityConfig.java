@@ -19,13 +19,13 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/admin/**").hasRole("ADMIN")
-                        .requestMatchers("/user/**").hasRole("USER")
-                        .anyRequest().authenticated())
+                        .requestMatchers("/register","/login","/reg").permitAll()
+                        .requestMatchers("/main").authenticated()
+                        .requestMatchers("/api/**").hasRole("worker")
+                        .anyRequest().hasRole("admin"))
                 .formLogin(login -> login
-                        .loginPage("/login")
-                        .permitAll())
-                .logout(logout -> logout.logoutUrl("/logout"));
+                        .loginPage("/login").permitAll())
+                .logout(logout -> logout.logoutUrl("/logout").permitAll());
         return http.build();
     }
 

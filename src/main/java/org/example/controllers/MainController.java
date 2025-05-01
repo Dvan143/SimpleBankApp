@@ -7,6 +7,8 @@ import org.example.db.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -34,12 +36,12 @@ public class MainController {
     public ResponseEntity index(){
         return new ResponseEntity<>(userService.findAll(), HttpStatus.OK);
     }
-    @PostMapping("/api/newUser")
-    public ResponseEntity newUser(@RequestBody AppUser user){
-        if (userService.findByUsername(user.getUsername()).isPresent()){
+    @PostMapping("/reg")
+    public ResponseEntity newUser(@RequestParam("username") String username, @RequestParam("password") String password){
+        if (userService.existByName(username)){
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         } else{
-            userService.save(user);
+            userService.save(new AppUser(username,passwordEncoder.encode(password),"user"));
             return new ResponseEntity<>(HttpStatus.CREATED);
         }
     }
@@ -93,4 +95,9 @@ public class MainController {
     public String logout(){
         return "logout";
     }
+    @GetMapping("/register")
+    public String register(){
+        return "register";
+    }
+    PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 }
