@@ -2,6 +2,7 @@ package org.example.db;
 
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,9 +11,11 @@ import java.util.Optional;
 @Service
 public class UserService {
     UserRepository userRepository;
+    PasswordEncoder encoder;
     @Autowired
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, PasswordEncoder encoder) {
         this.userRepository = userRepository;
+        this.encoder = encoder;
     }
 
     public List<AppUser> findAll() {
@@ -36,9 +39,6 @@ public class UserService {
     public String getRoleByUsername(String username) {
         return userRepository.getRoleByUsername(username);
     }
-    //    public void save(User user) {
-    //        userRepository.save(user);
-    //    }
     public void save(AppUser user){
         AppUser newUser = new AppUser();
         if (user.getRole()==null){
@@ -47,5 +47,13 @@ public class UserService {
             newUser = new AppUser(user.getUsername(),user.getPassword(),user.getRole());
         }
         userRepository.save(newUser);
+    }
+
+    @PostConstruct
+    public void init() {
+        AppUser user = new AppUser("bob", encoder.encode("1234"),"user");
+        AppUser admin = new AppUser("admin", encoder.encode("admin"),"admin");
+        save(admin);
+        save(user);
     }
 }

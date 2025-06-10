@@ -1,30 +1,19 @@
 package org.example.controllers;
 
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+@Controller
 public class PageController {
     @GetMapping("/main")
-    public String main(){
+    public String main(Model model) {
+        model.addAttribute("username", SecurityContextHolder.getContext().getAuthentication().getName());
         return "index";
-    }
-    @GetMapping("/admin")
-    public String admin(){
-        return "admin";
-    }
-    @GetMapping("/user")
-    public String user(){
-        return "user";
     }
     @GetMapping("/login")
     public String login(){
         return "login";
-    }
-    @GetMapping("/logout")
-    public String logout(){
-        return "logout";
-    }
-    @GetMapping("/register")
-    public String register(){
-        return "register";
     }
 }
